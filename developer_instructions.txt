@@ -1,0 +1,88 @@
+### Anvisninger til forbedringer af wellness-appens mockup
+
+#### Introduktion:
+Pia, nedenfor finder du en samling af foreslåede ændringer og forbedringer for wellness-appens koden. Disse forslag fokuserer på at sikre modularitet, vedligeholdelse, og fremtidig fleksibilitet, samtidig med at design og funktionalitet optimeres.
+
+---
+### 1. Modularisér koden i separate filer (inden for én HTML-fil i første omgang)
+Selvom du arbejder med én HTML-fil som grundlag for denne mockup, anbefales det at modularisere koden internt:
+- Brug `<template>`-tags til genanvendelse af UI-komponenter.
+- Placer CSS i `<style>` med brug af variabler for at sikre konsistens i design (for eksempel farver eller typografi).
+- Placér JavaScript i `<script>` sektionen og organiser logikken med genanvendelige funktioner.
+- Opdel koden ved at gruppere i afsnit og brug strategiske kommentarer.
+
+### 2. Optimer CSS og reducer redundans
+- Brug CSS-variabler i `:root` til globale værdier:
+```css
+:root {
+    --primary-color: #588157;
+    --secondary-color: #E07A5F;
+    --background-light: #F9F4EB;
+    --text-primary: #3F4A39;
+}
+```
+- Fjern gentagne eller overflødige klasser, og konsolider dem med genbrugelige basis-klasser.
+- Overvej at integrere TailwindCSS for at opnå en utility-klassebaseret tilgang. Hvis det ikke er passende, kan du bruge egne utility-klasser som:
+```css
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    font-weight: bold;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+```
+
+### 3. Introducer semantiske HTML-tags og WCAG-forbedringer
+- Brug `<main>`, `<section>` og andre semantiske tags for at organisere HTML-strukturen bedre.
+- Tilføj `aria-label` og andre WCAG-standarder til interaktive elementer:
+```html
+<button aria-label="Gå til profil">
+    <i class="fa-solid fa-user"></i>
+</button>
+```
+- Brug skærmlæservenlige egenskaber som `tabindex` og `aria-live`.
+
+### 4. Brug responsivt design til flere skærmstørrelser
+- Anvend CSS medieråb som nedenfor til at sikre, at layoutet fungerer både på små og store skærme:
+```css
+@media (max-width: 768px) {
+    .iphone-case {
+        width: 100%;
+        padding: 1rem;
+    }
+}
+```
+- Udskift faste pixelværdier med fleksible enheder som `em`, `%` eller `vh/vw` for bedre skalerbarhed.
+
+### 5. Tilføj understøttelse for brugerdefinerede mål og internationalisering (i18n)
+#### Brugerdefinerede mål:
+- Brug browserens `localStorage` til at gemme brugerdefinerede værdier som kaloriemål eller aktivitetsmål:
+```javascript
+const userGoals = JSON.parse(localStorage.getItem('userGoals')) || { calories: 1500 };
+function saveUserGoals(newGoals) {
+    localStorage.setItem('userGoals', JSON.stringify(newGoals));
+}
+```
+- Tilføj formularer i HTML for at tillade, at brugeren ændrer deres mål:
+```html
+<form id="goalsForm" onsubmit="updateGoals(event)">
+    <label for="calories">Kalorier per dag:</label>
+    <input id="calories" type="number" value="1500">
+    <button type="submit">Gem</button>
+</form>
+```
+
+#### Internationalisering:
+- Implementer et simpelt oversættelsessystem med JavaScript:
+```javascript
+const translations = {
+    en: { welcome: "Welcome", calories: "Calories" },
+    dk: { welcome: "Velkommen", calories: "Kalorier" },
+};
+const lang = navigator.language.startsWith("dk") ? "dk" : "en";
+alert(translations[lang].welcome);
+```
+
+---
+
+Dette dokument skal hjælpe med at strukturere koden optimalt og implementere forbedringer på en trinvis måde. Hvis du har yderligere spørgsmål, eller ønsker flere detaljer om et punkt, er du velkommen til at spørge!
