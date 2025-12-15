@@ -1,5 +1,9 @@
-/* Wellness Tracker Styles - Needs Refactoring */
+/**
+ * Wellness Tracker Styles - Refactored Version
+ * Improved with utility classes, combined rules, and fixed syntax
+ */
 
+/* Reset and base styles */
 * {
     margin: 0;
     padding: 0;
@@ -10,6 +14,7 @@ body {
     font-family: 'Arial', sans-serif;
     background-color: #f5f7fa;
     color: #333;
+    line-height: 1.6;
 }
 
 /* Container */
@@ -19,7 +24,7 @@ body {
     padding: 20px;
 }
 
-/* Header - Redundant rules */
+/* Header */
 .header {
     text-align: center;
     margin-bottom: 30px;
@@ -32,12 +37,10 @@ body {
 .header h1 {
     font-size: 2.5rem;
     margin-bottom: 10px;
-    color: white;
 }
 
 .header p {
     font-size: 1.1rem;
-    color: white;
 }
 
 /* Main Content */
@@ -47,35 +50,41 @@ body {
     gap: 30px;
 }
 
-/* Dashboard Section - Redundant properties */
-.dashboard {
+/* Utility classes for common card styles */
+.card {
     background-color: white;
     padding: 25px;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.dashboard h2 {
+/* Section headers */
+.card h2 {
     font-size: 1.8rem;
     margin-bottom: 20px;
     color: #333;
 }
 
-/* Stats Grid - Missing syntax */
+/* Dashboard Section */
+.dashboard {
+    /* Inherits from .card utility class */
+}
+
+/* Stats Grid - Fixed missing semicolon */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px
+    gap: 20px;
 }
 
-/* Stat Card - Lots of redundancy */
+/* Stat Card with hover effect */
 .stat-card {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     text-align: center;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .stat-card:hover {
@@ -107,9 +116,9 @@ body {
     margin-bottom: 15px;
 }
 
-/* Buttons - Redundant definitions */
-.btn-primary {
-    background-color: #4a90e2;
+/* Button base styles - DRY principle applied */
+.btn-primary,
+.btn-secondary {
     color: white;
     border: none;
     padding: 10px 20px;
@@ -117,6 +126,10 @@ body {
     cursor: pointer;
     font-size: 1rem;
     transition: background-color 0.3s;
+}
+
+.btn-primary {
+    background-color: #4a90e2;
 }
 
 .btn-primary:hover {
@@ -125,31 +138,15 @@ body {
 
 .btn-secondary {
     background-color: #95a5a6;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s;
 }
 
 .btn-secondary:hover {
     background-color: #7f8c8d;
 }
 
-/* Activity Log - Duplicate properties */
+/* Activity Log - Uses card utility class */
 .activity-log {
-    background-color: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.activity-log h2 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    color: #333;
+    /* Inherits from .card utility class */
 }
 
 .activity-list {
@@ -190,7 +187,7 @@ body {
     font-style: italic;
 }
 
-/* Modal - Syntax error and redundancy */
+/* Modal - Fixed missing semicolon */
 .modal {
     display: none;
     position: fixed;
@@ -210,7 +207,7 @@ body {
     width: 90%;
     max-width: 500px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    position: relative
+    position: relative;
 }
 
 .close {
