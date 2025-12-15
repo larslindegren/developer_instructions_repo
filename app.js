@@ -362,23 +362,35 @@ function logActivity() {
     WellnessApp.logActivity();
 }
 
-// Initialize app when DOM is ready
+// Initialize app when DOM is ready and set up event listeners
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => WellnessApp.init());
+    document.addEventListener('DOMContentLoaded', initializeApp);
 } else {
-    WellnessApp.init();
+    initializeApp();
 }
 
-// Close modal when clicking outside
-window.addEventListener('click', (event) => {
-    if (event.target === WellnessApp.dom.modal) {
-        WellnessApp.closeModal();
-    }
-});
+/**
+ * Initialize the app and set up global event listeners
+ * This ensures DOM elements are cached before event handlers reference them
+ */
+function initializeApp() {
+    WellnessApp.init();
 
-// Handle Enter key in modal input
-document.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter' && WellnessApp.state.currentModalType) {
-        WellnessApp.logActivity();
-    }
-});
+    // Close modal when clicking outside (after DOM is cached)
+    window.addEventListener('click', (event) => {
+        if (WellnessApp.dom.modal && event.target === WellnessApp.dom.modal) {
+            WellnessApp.closeModal();
+        }
+    });
+
+    // Handle Enter key in modal input (only when modal is visible and has a type)
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' && 
+            WellnessApp.state.currentModalType && 
+            WellnessApp.dom.modal && 
+            WellnessApp.dom.modal.style.display !== 'none') {
+            event.preventDefault();
+            WellnessApp.logActivity();
+        }
+    });
+}
