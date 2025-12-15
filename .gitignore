@@ -1,0 +1,25 @@
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# Node modules (if ever added)
+node_modules/
+
+# Build artifacts
+dist/
+build/
+
+# Test coverage
+coverage/
+
+# System files
+Thumbs.db
